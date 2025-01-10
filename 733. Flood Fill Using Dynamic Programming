@@ -1,0 +1,36 @@
+class Solution(object):
+    def floodFill(self, image, sr, sc, color):
+        """
+        :type image: List[List[int]]
+        :type sr: int
+        :type sc: int
+        :type color: int
+        :rtype: List[List[int]]
+        """
+        def floodHelper(image,sr,sc,color,memo):
+            if memo[sr][sc] == 1:
+                return
+            memo[sr][sc] = 1
+            oriColor = image[sr][sc]
+            if color == oriColor:
+                return
+            image[sr][sc] = color 
+            if sr > 0 and image[sr-1][sc] == oriColor:
+                    floodHelper(image,sr-1,sc,color,memo)
+            if sc > 0 and image[sr][sc-1] == oriColor:
+                    floodHelper(image,sr,sc-1,color,memo)
+            if sr+1 < len(image) and image[sr+1][sc] == oriColor:
+                    floodHelper(image,sr+1,sc,color,memo)
+            if sc+1 < len(image[sr]) and image[sr][sc+1] == oriColor:
+                    floodHelper(image,sr,sc+1,color,memo)
+        memo = [ [0]*len(image[i]) for i in range(len(image))]
+        floodHelper(image, sr, sc, color,memo)
+        return image
+                
+        
+
+
+
+
+        
+        
